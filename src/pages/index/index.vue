@@ -145,7 +145,7 @@ export default {
       })
     },
     onSearchBarClick () {
-      // 跳转到搜索页面
+      this.$router.push('/pages/search/main')
     },
     onBannerClick () {
       console.log('banner click ...')
