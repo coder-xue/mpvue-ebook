@@ -7,16 +7,23 @@
       @onBtnClick="changeHotSearch"
       @onTagClick="showBookDetail"
     />
+    <SearchItem 
+      title="计算机与科学"
+      subTitle="html"
+      icon="comment"
+    />
   </div>
 </template>
 
 <script>
 import Tag from '@/components/base/Tag'
 import TagGroup from '@/components/base/TagGroup'
+import SearchItem from '@/components/search/SearchItem'
 export default {
   components: {
     Tag,
-    TagGroup
+    TagGroup,
+    SearchItem
   },
   data () {
     return {
