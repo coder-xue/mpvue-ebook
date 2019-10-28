@@ -40,7 +40,7 @@ import SearchItem from '@/components/search/SearchItem'
 import SearchTable from '@/components/search/SearchTable'
 import SearchList from '@/components/search/SearchList'
 import { search, hotSearch } from '@/api'
-import { getStorageSync, setStorageSync } from '@/api/wechat'
+import { getStorageSync, setStorageSync, showToast } from '@/api/wechat'
 export default {
   components: {
     SearchBar,
@@ -68,7 +68,8 @@ export default {
       hotSearch: [],
       historySearch: [],
       searchFocus: true,
-      openId: ''
+      openId: '',
+      page: 1
     }
   },
   methods: {
@@ -97,12 +98,14 @@ export default {
         this.searchList = {}
         return
       }
+      this.page = 1
       this.onSearch(keyword)
     },
     onSearch (keyword) {
       search({
         keyword,
-        openId: this.openId
+        openId: this.openId,
+        page: this.page
       }).then(res => {
         this.searchList = res.data.data
       })
@@ -128,12 +131,38 @@ export default {
     }
   },
   mounted () {
+    this.page = 1
     this.openId = getStorageSync('openId')
     hotSearch().then(res => {
       this.hotSearch = res.data.data
     })
     this.hotSearchKeyword = this.$route.query.hotSearch
     this.historySearch = getStorageSync('historySearch') || []
+  },
+  // 生命周期函数, 滚动条滑动的时候调用
+  onPageScroll () {
+    if (this.searchFocus) {
+      this.searchFocus = false
+    }
+  },
+  // 生命周期函数, 滚动条到达底部的时候调用
+  onReachBottom () {
+    if (this.showList) {
+      this.page++
+      const searchWord = this.$refs.searchBar.getValue()
+      search({
+        keyword: searchWord,
+        openId: this.openId,
+        page: this.page
+      }).then(res => {
+        const { book } = res.data.data
+        if (book && book.length > 0) {
+          this.searchList.book.push(...book)
+        } else {
+          showToast('没有更多数据了')
+        }
+      })
+    }
   }
 }
 </script>
