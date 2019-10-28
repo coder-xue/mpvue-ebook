@@ -66,6 +66,7 @@ export default {
       const { value } = e.mp.detail
       this.$emit('onChange', value)
     },
+    // 点击完成按钮时触发
     onConfirm (e) {
       const { value } = e.mp.detail
       this.$emit('onConfirm', value)

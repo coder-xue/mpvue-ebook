@@ -5,6 +5,7 @@
       :focus="searchFocus"
       @onChange="onChange"
       @onClear="onClear"
+      @onConfirm="onConfirm"
     />
     <TagGroup
       header-text="热门搜索"
@@ -70,6 +71,18 @@ export default {
     }
   },
   methods: {
+    onConfirm (keyword) {
+      // 1.判断是否有搜索关键词，如果没有，则获取热门搜索词，通过热门搜索词发起请求，如果有，就用搜索关键词发起请求
+      if (!keyword || keyword.trim().length === 0) {
+        keyword = this.hotSearchKeyword
+      } else {
+
+      }
+      this.onSearch(keyword)
+      // 2.将搜索结果写入历史搜索
+      // 3.将搜索框市区焦点
+      console.log(keyword)
+    },
     onClear () {
       this.searchList = {}
     },
