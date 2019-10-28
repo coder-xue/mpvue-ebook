@@ -35,3 +35,7 @@ export function register (openId, userInfo) {
     ...userInfo
   })
 }
+
+export function search (params) {
+  return get(`${API_URL}/book/search`, params)
+}

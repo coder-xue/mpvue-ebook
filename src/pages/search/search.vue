@@ -35,6 +35,8 @@ import TagGroup from '@/components/base/TagGroup'
 import SearchItem from '@/components/search/SearchItem'
 import SearchTable from '@/components/search/SearchTable'
 import SearchList from '@/components/search/SearchList'
+import { search } from '@/api'
+import { getStorageSync } from '@/api/wechat'
 export default {
   components: {
     SearchBar,
@@ -55,12 +57,24 @@ export default {
       searchList: {},
       hotSearch: [],
       historySearch: [],
-      searchFocus: true
+      searchFocus: true,
+      openId: ''
     }
   },
   methods: {
     onChange (keyword) {
-      console.log(keyword)
+      if (!keyword || keyword.trim().length === 0) {
+        return
+      }
+      this.onSearch(keyword)
+    },
+    onSearch (keyword) {
+      search({
+        keyword,
+        openId: this.openId
+      }).then(res => {
+        this.searchList = res.data.data
+      })
     },
     clearHistorySearch () {},
     searchkeyWord () {},
@@ -73,6 +87,9 @@ export default {
     changeHotSearch () {
       console.log('换一批')
     }
+  },
+  mounted () {
+    this.openId = getStorageSync('openId')
   }
 }
 </script>
