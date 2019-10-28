@@ -60,7 +60,7 @@ export default {
     },
     onClearClick () {
       this.searchWord = ''
-      this.$emit('onClick')
+      this.$emit('onClear')
     },
     onChange (e) {
       const { value } = e.mp.detail

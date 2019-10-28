@@ -1,13 +1,15 @@
 <template>
   <div>
     <SearchBar 
+      :hotSearch="hotSearchKeyword"
       :focus="searchFocus"
       @onChange="onChange"
+      @onClear="onClear"
     />
     <TagGroup
       header-text="热门搜索"
       btn-text="换一批"
-      :value="hotSearch"
+      :value="hotSearchArray"
       @onBtnClick="changeHotSearch"
       @onTagClick="showBookDetail"
       v-if="hotSearch.length > 0 && !showList"
@@ -35,7 +37,7 @@ import TagGroup from '@/components/base/TagGroup'
 import SearchItem from '@/components/search/SearchItem'
 import SearchTable from '@/components/search/SearchTable'
 import SearchList from '@/components/search/SearchList'
-import { search } from '@/api'
+import { search, hotSearch } from '@/api'
 import { getStorageSync } from '@/api/wechat'
 export default {
   components: {
@@ -50,11 +52,17 @@ export default {
     showList () {
       const keys = Object.keys(this.searchList)
       return keys.length > 0
+    },
+    hotSearchArray () {
+      const _hotSearch = []
+      this.hotSearch.forEach(o => _hotSearch.push(o.title))
+      return _hotSearch
     }
   },
   data () {
     return {
       searchList: {},
+      hotSearchKeyword: '',
       hotSearch: [],
       historySearch: [],
       searchFocus: true,
@@ -62,8 +70,12 @@ export default {
     }
   },
   methods: {
+    onClear () {
+      this.searchList = {}
+    },
     onChange (keyword) {
       if (!keyword || keyword.trim().length === 0) {
+        this.searchList = {}
         return
       }
       this.onSearch(keyword)
@@ -90,6 +102,10 @@ export default {
   },
   mounted () {
     this.openId = getStorageSync('openId')
+    hotSearch().then(res => {
+      this.hotSearch = res.data.data
+    })
+    this.hotSearchKeyword = this.$route.query.hotSearch
   }
 }
 </script>
