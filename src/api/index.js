@@ -36,38 +36,51 @@ export function register (openId, userInfo) {
   })
 }
 
+// 搜索
 export function search (params) {
   return get(`${API_URL}/book/search`, params)
 }
 
+// 热门搜索
 export function hotSearch () {
   return get(`${API_URL}/book/hot-search`)
 }
 
+// 图书详情
 export function bookDetail (params) {
   return get(`${API_URL}/book/detail`, params)
 }
 
+// 评分
 export function bookRankSave (params) {
   return get(`${API_URL}/book/rank/save`, params)
 }
 
+// 图书详情目录
 export function bookContents (params) {
   return get(`${API_URL}/book/contents`, params)
 }
 
+// 查询是否已在书架中
 export function bookIsInShelf (params) {
   return get(`${API_URL}/book/shelf/get`, params)
 }
 
+// 加入书架
 export function bookShelfSave (params) {
   return get(`${API_URL}/book/shelf/save`, {
     shelf: JSON.stringify(params)
   })
 }
 
+// 移出书架
 export function bookShelfRemove (params) {
   return get(`${API_URL}/book/shelf/remove`, {
     shelf: JSON.stringify(params)
   })
+}
+
+// 图书列表
+export function searchList (params) {
+  return get(`${API_URL}/book/search-list`, params)
 }
