@@ -6,7 +6,10 @@
         @onClick="onSearchBarClick"
         :hotSearch="hotSearch"
       />
-      <HomeCard :data="homeCard"/>
+      <HomeCard 
+        :data="homeCard"
+        @onClick="onHomeBookClick"
+      />
       <HomeBanner 
         img="http://www.youbaobao.xyz/book/res/bg.jpg"
         title="mpvue2.0实战多端小程序"
@@ -158,8 +161,10 @@ export default {
     onBookMoreClick () {
       console.log('more click')
     },
-    onBookClick () {
-      console.log('book click')
+    onHomeBookClick (book) {
+      this.$router.push({
+        path: '/pages/detail/main'
+      })
     },
     recommendChange (key) {
       switch (key) {

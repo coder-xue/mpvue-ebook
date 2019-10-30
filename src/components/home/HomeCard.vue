@@ -21,7 +21,7 @@
             class="book-img-wrapper" 
             v-for="(item, index) in bookList" 
             :key="index"
-            @click="onBookClick"
+            @click="onBookClick(item)"
           >
             <ImageView 
               :src="item.cover"
@@ -81,8 +81,8 @@ export default {
     // 跳转到书架
     gotoShelf () {},
     // 点击图书
-    onBookClick () {
-      this.$emit('onClick')
+    onBookClick (item) {
+      this.$emit('onClick', item)
     },
     // 签到
     sign () {},
