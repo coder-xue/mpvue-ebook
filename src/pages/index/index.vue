@@ -59,7 +59,7 @@
           :col="2"
           :data="category"
           mode="category"
-          btn-text="产看全部"
+          btn-text="查看全部"
           @onBookMoreClick="onCategoryMoreClick"
           @onBookClick="onBookClick"
         />
@@ -191,7 +191,11 @@ export default {
           break
       }
     },
-    onCategoryMoreClick () {},
+    onCategoryMoreClick () {
+      this.$router.push({
+        path: '/pages/categoryList/main'
+      })
+    },
     getHomeData (openId, userInfo) {
       getHomeData({openId: openId}).then(response => {
         const {
