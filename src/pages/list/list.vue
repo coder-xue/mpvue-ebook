@@ -37,13 +37,19 @@ export default {
     }
   },
   mounted () {
+    this.page = 1
     this.getSearchList()
     const { title } = this.$route.query
     setNavigationBarTitle(title) // 设置导航标题
   },
+  // 监听用户上拉触底事件
   onReachBottom () {
     this.page++
     this.getSearchList()
+  },
+  // 页面显示/切入前台时触发
+  onShow () {
+    this.data = [] // 初始化数据
   }
 }
 </script>

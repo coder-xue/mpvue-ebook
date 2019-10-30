@@ -25,7 +25,7 @@
           mode="col"
           btn-text="换一批"
           @onBookMoreClick="recommendChange('recommend')"
-          @onBookClick="onBookClick"
+          @onBookClick="onHomeBookClick"
         />
       </div>
       <div :style="{marginTop: '23px'}">
@@ -37,7 +37,7 @@
           mode="row"
           btn-text="换一批"
           @onBookMoreClick="recommendChange('freeRead')"
-          @onBookClick="onBookClick"
+          @onBookClick="onHomeBookClick"
         />
       </div>
       <div :style="{marginTop: '23px'}">
@@ -49,7 +49,7 @@
           mode="col"
           btn-text="换一批"
           @onBookMoreClick="recommendChange('hotBook')"
-          @onBookClick="onBookClick"
+          @onBookClick="onHomeBookClick"
         />
       </div>
       <div :style="{marginTop: '23px'}">
@@ -61,7 +61,7 @@
           mode="category"
           btn-text="查看全部"
           @onBookMoreClick="onCategoryMoreClick"
-          @onBookClick="onBookClick"
+          @onBookClick="onCategoryClick"
         />
       </div>
     </div>
@@ -190,6 +190,16 @@ export default {
         default:
           break
       }
+    },
+    onCategoryClick (category) {
+      this.$router.push({
+        path: '/pages/list/main',
+        query: {
+          key: 'categoryId',
+          text: category.category,
+          title: category.categoryText
+        }
+      })
     },
     onCategoryMoreClick () {
       this.$router.push({

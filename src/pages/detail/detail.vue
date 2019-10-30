@@ -33,7 +33,7 @@
         <van-button
           custom-class="detail-btn-read"
           round
-          @click="() => readBook()"
+          @click="readBook"
         >
           阅读
         </van-button>
@@ -90,13 +90,30 @@ export default {
       const { fileName } = this.$route.query
       if (fileName) {
         bookContents({fileName}).then(res => {
-          console.log('目录', res.data.data)
           this.contents = res.data.data
         })
       }
     },
     readBook (href) {
-
+      const query = {
+        fileName: this.book.fileName,
+        opf: this.book.opf
+      }
+      if (href) {
+        console.log(href)
+        const index = href.indexOf('/')
+        if (index >= 0) {
+          query.navigation = href.slice(index + 1)
+        } else {
+          query.navigation = href
+        }
+      }
+      if (this.book && this.book.fileName) {
+        this.$router.push({
+          path: '/pages/read/main',
+          query
+        })
+      }
     },
     getBookIsInShelf () {
       const openId = getStorageSync('openId')

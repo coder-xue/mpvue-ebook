@@ -4,7 +4,8 @@
     "pages/search/main",
     "pages/detail/main",
     "pages/list/main",
-    "pages/categoryList/main"
+    "pages/categoryList/main",
+    "pages/read/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
