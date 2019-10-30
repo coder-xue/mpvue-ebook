@@ -80,3 +80,8 @@ export function showToast (title) {
     duration: 2000
   })
 }
+
+export function setNavigationBarTitle (title) {
+  // 原生api,设置导航标题
+  mpvue.setNavigationBarTitle({title})
+}

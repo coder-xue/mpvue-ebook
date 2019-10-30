@@ -6,6 +6,7 @@
 
 <script>
 import SearchTable from '@/components/search/SearchTable'
+import { setNavigationBarTitle } from '@/api/wechat'
 import { searchList } from '@/api'
 export default {
   components: {
@@ -30,6 +31,8 @@ export default {
   },
   mounted () {
     this.getSearchList()
+    const { title } = this.$route.query
+    setNavigationBarTitle(title) // 设置导航标题
   }
 }
 </script>
