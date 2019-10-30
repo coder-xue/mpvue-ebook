@@ -51,3 +51,7 @@ export function bookDetail (params) {
 export function bookRankSave (params) {
   return get(`${API_URL}/book/rank/save`, params)
 }
+
+export function bookContents (params) {
+  return get(`${API_URL}/book/contents`, params)
+}

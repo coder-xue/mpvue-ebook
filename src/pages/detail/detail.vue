@@ -11,6 +11,10 @@
       :rateValue="book.rateValue"
       @onRateChange="onRateChange"
     />
+    <DetailContents 
+      :contents="contents"
+      @readBook="readBook"
+    />
   </div>
 </template>
 
@@ -18,17 +22,20 @@
 import DetailBook from '@/components/detail/DetailBook'
 import DetailStat from '@/components/detail/DetailStat'
 import DetailRate from '@/components/detail/DetailRate'
-import { bookDetail, bookRankSave } from '@/api'
+import DetailContents from '@/components/detail/DetailContents'
+import { bookDetail, bookRankSave, bookContents } from '@/api'
 import { getStorageSync } from '@/api/wechat'
 export default {
   components: {
     DetailBook,
     DetailStat,
-    DetailRate
+    DetailRate,
+    DetailContents
   },
   data () {
     return {
-      book: {}
+      book: {},
+      contents: []
     }
   },
   methods: {
@@ -51,10 +58,22 @@ export default {
           this.book = res.data.data
         })
       }
+    },
+    getBookContents () {
+      const { fileName } = this.$route.query
+      if (fileName) {
+        bookContents({fileName}).then(res => {
+          this.contents = res.data.data
+        })
+      }
+    },
+    readBook (href) {
+
     }
   },
   mounted () {
     this.getBookDetail()
+    this.getBookContents()
   }
 }
 </script>
