@@ -43,3 +43,7 @@ export function search (params) {
 export function hotSearch () {
   return get(`${API_URL}/book/hot-search`)
 }
+
+export function bookDetail (params) {
+  return get(`${API_URL}/book/detail`, params)
+}

@@ -163,7 +163,10 @@ export default {
     },
     onHomeBookClick (book) {
       this.$router.push({
-        path: '/pages/detail/main'
+        path: '/pages/detail/main',
+        query: {
+          fileName: book.fileName
+        }
       })
     },
     recommendChange (key) {
