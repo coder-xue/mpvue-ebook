@@ -50,6 +50,7 @@ import DetailContents from '@/components/detail/DetailContents'
 import DetailBottom from '@/components/detail/DetailBottom'
 import { bookDetail, bookRankSave, bookContents, bookIsInShelf, bookShelfSave, bookShelfRemove } from '@/api'
 import { getStorageSync } from '@/api/wechat'
+import { mapMutations } from 'vuex'
 export default {
   components: {
     DetailBook,
@@ -66,6 +67,7 @@ export default {
     }
   },
   methods: {
+    ...mapMutations(['addShelfNum', 'removeShelfNum']),
     onRateChange (value) {
       const openId = getStorageSync('openId')
       const { fileName } = this.$route.query
@@ -134,7 +136,8 @@ export default {
         bookShelfSave({ openId, fileName }).then(res => {
           this.getBookIsInShelf()
         })
-        this.$store.commit('addShelfNum')
+        // this.$store.commit('addShelfNum')
+        this.addShelfNum()
       } else {
         const vue = this
         mpvue.showModal({
@@ -145,7 +148,8 @@ export default {
               bookShelfRemove({ openId, fileName }).then(res => {
                 vue.getBookIsInShelf()
               })
-              vue.$store.commit('removeShelfNum')
+              // vue.$store.commit('removeShelfNum')
+              vue.removeShelfNum()
             } else {
               console.log('用户点击取消')
             }
