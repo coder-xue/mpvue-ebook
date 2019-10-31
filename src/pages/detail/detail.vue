@@ -121,11 +121,7 @@ export default {
       if (openId && fileName) {
         bookIsInShelf({ openId, fileName }).then(res => {
           const { data } = res.data
-          if (data.length === 0) {
-            this.isInShelf = false
-          } else {
-            this.isInShelf = true
-          }
+          data.length === 0 ? this.isInShelf = false : this.isInShelf = true
         })
       }
     },
@@ -159,6 +155,9 @@ export default {
     this.getBookDetail()
     this.getBookContents()
     this.getBookIsInShelf()
+  },
+  onShow () {
+    this.isInShelf = false
   }
 }
 </script>
