@@ -33,7 +33,7 @@
         <van-button
           custom-class="detail-btn-read"
           round
-          @click="readBook"
+          @click="() => readBook()"
         >
           阅读
         </van-button>
