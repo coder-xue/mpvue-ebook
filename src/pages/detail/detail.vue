@@ -121,6 +121,7 @@ export default {
       if (openId && fileName) {
         bookIsInShelf({ openId, fileName }).then(res => {
           const { data } = res.data
+          console.log(data.length)
           data.length === 0 ? this.isInShelf = false : this.isInShelf = true
         })
       }
@@ -133,6 +134,7 @@ export default {
         bookShelfSave({ openId, fileName }).then(res => {
           this.getBookIsInShelf()
         })
+        this.$store.commit('addShelfNum')
       } else {
         const vue = this
         mpvue.showModal({
@@ -143,6 +145,7 @@ export default {
               bookShelfRemove({ openId, fileName }).then(res => {
                 vue.getBookIsInShelf()
               })
+              vue.$store.commit('removeShelfNum')
             } else {
               console.log('用户点击取消')
             }

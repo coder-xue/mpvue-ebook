@@ -9,7 +9,7 @@ export default {
       url: ''
     }
   },
-  mounted () {
+  onShow () {
     const { query } = this.$route
     let _url = 'http://www.youbaobao.xyz/book/#/ebook'
     if (query.fileName) {

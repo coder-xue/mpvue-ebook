@@ -61,7 +61,7 @@ export function bookContents (params) {
   return get(`${API_URL}/book/contents`, params)
 }
 
-// 查询是否已在书架中
+// 书架列表
 export function bookIsInShelf (params) {
   return get(`${API_URL}/book/shelf/get`, params)
 }
@@ -88,4 +88,8 @@ export function searchList (params) {
 // 图书分类列表
 export function categoryList () {
   return get(`${API_URL}/book/category/list/v2`)
+}
+
+export function userDay (params) {
+  return get(`${API_URL}/user/day`, params)
 }

@@ -11,7 +11,7 @@
           />
         </div>
         <div class="nickname">{{ nickname }}</div>
-        <div class="shelf-text">书架共有{{ data.num }}本好书</div>
+        <div class="shelf-text">书架共有{{ inShelfNum }}本好书</div>
         <div class="round-item"></div>
         <div class="shelf-text">特别精选</div>
       </div>
@@ -28,7 +28,7 @@
             />
           </div>
         </div>
-        <div class="shelf-wrapper">
+        <div class="shelf-wrapper" @click="gotoShelf">
           <div class="shelf">书架</div>
           <van-icon 
             class="arrow" 
@@ -50,10 +50,17 @@
 <script>
 import ImageView from '@/components/base/ImageView'
 import Dialog from 'vant-weapp/dist/dialog/dialog'
+import { bookIsInShelf } from '@/api'
+import { getStorageSync } from '@/api/wechat'
 export default {
   components: {
     ImageView,
     Dialog
+  },
+  data () {
+    return {
+      shelfList: []
+    }
   },
   props: {
     data: Object,
@@ -75,11 +82,16 @@ export default {
     },
     bookList () {
       return (this.data && this.data.bookList) || []
+    },
+    inShelfNum () {
+      return this.$store.state.inShelfNum
     }
   },
   methods: {
     // 跳转到书架
-    gotoShelf () {},
+    gotoShelf () {
+      this.$router.push('/pages/shelf/main')
+    },
     // 点击图书
     onBookClick (item) {
       this.$emit('onClick', item)
@@ -98,6 +110,14 @@ export default {
         console.log('点击否之后的事件')
       })
     }
+  },
+  mounted () {
+    const openId = getStorageSync('openId')
+    bookIsInShelf({ openId }).then(res => {
+      this.shelfList = res.data.data
+      this.shelfList.push({})
+      this.$store.commit('inShelfNum', res.data.data.length)
+    })
   }
 }
 </script>
