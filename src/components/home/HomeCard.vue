@@ -52,6 +52,7 @@ import ImageView from '@/components/base/ImageView'
 import Dialog from 'vant-weapp/dist/dialog/dialog'
 import { bookIsInShelf } from '@/api'
 import { getStorageSync } from '@/api/wechat'
+import { mapState } from 'vuex'
 export default {
   components: {
     ImageView,
@@ -74,6 +75,7 @@ export default {
     }
   },
   computed: {
+    ...mapState(['inShelfNum']),
     avatar () {
       return (this.data && this.data.userInfo && this.data.userInfo.avatarUrl) || ''
     },
@@ -82,10 +84,10 @@ export default {
     },
     bookList () {
       return (this.data && this.data.bookList) || []
-    },
-    inShelfNum () {
-      return this.$store.state.inShelfNum
     }
+    // inShelfNum () {
+    //   return this.$store.state.inShelfNum
+    // }
   },
   methods: {
     // 跳转到书架
