@@ -112,7 +112,7 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
   onLoad() {
 		Object.assign(this.$data, this.$options.data())
 	}
-  ````
+  ```
 
 
 17.通过back的方式返回上一级页面，上一级页面不会重新调用mounted（）方法，但是会再次调用onShow(）方法
