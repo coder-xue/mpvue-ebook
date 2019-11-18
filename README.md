@@ -124,7 +124,7 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 19.小程序的生命周期函数只能在vue实例绑定的根组件中起作用，在其余子组件中不会起作用。（表述可能不太准确）
 
 # 项目截图
-<div style="display:flex;flex:1;justify-content:space-between;flex-wrap:wrap;align-items:space-around">
+<div style="display:flex;flex:1;justify-content:space-between;flex-wrap:wrap;align-items:space-around;background:black">
   
 <img src="https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E9%A6%96%E9%A1%B5.jpg" width="375" height="667" />
 
