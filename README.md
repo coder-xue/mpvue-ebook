@@ -108,11 +108,11 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 
 
 16.小程序页面卸载的时候，vue不会执行beforeDestroy和destroyed函数，也就是说vue实例并不会销毁，只会执行小程序的onUnload生命周期函数，小程序的page实例会被销毁掉，vue内部的状态会被保存。解决方法：小程序加载页面的时候初始化data里面的数据。
-	```
+```
   onLoad() {
 		Object.assign(this.$data, this.$options.data())
 	}
-  ```
+```
 
 
 17.通过back的方式返回上一级页面，上一级页面不会重新调用mounted（）方法，但是会再次调用onShow(）方法
