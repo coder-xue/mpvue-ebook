@@ -43,7 +43,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 2. node_modules 中的类库最终被打包在了common文件下的vendor.js文件中，所引入的组件是无法直接访问的，通过修改构建配置，在webpack.base.config.js文件中加入以下代码即可。
 
-`if (/^wx$/.test(PLATFORM)) {
+```
+if (/^wx$/.test(PLATFORM)) {
   baseWebpackConfig = merge(baseWebpackConfig, {
     plugins: [
       new CopyWebpackPlugin([{
@@ -53,7 +54,8 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
       }])
     ]
   })
-}`
+}
+```
 
 3. 引入一个新组件的时候，需要重新运行 npm run dev，否则wxml会无法解析
 
@@ -63,14 +65,16 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 
 5. mpvue的源码，主要支持以下这些标签，我们通常开发用不到这么多，记住一些常用的即可：
 
-`var isReservedTag = makeMap(
+```
+var isReservedTag = makeMap(
   'template,script,style,element,content,slot,link,meta,svg,view,' +
   'a,div,img,image,text,span,richtext,input,switch,textarea,spinner,select,' +
   'slider,slider-neighbor,indicator,trisition,trisition-group,canvas,' +
   'list,cell,header,loading,loading-indicator,refresh,scrollable,scroller,' +
   'video,web,embed,tabbar,tabheader,datepicker,timepicker,marquee,countdown',
   true
-);`
+);
+```
 也就是说实际开发过程中写 img 和写 image 都是可以的，mpvue 都可以正常识别
 
 
@@ -104,9 +108,11 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 
 
 16.小程序页面卸载的时候，vue不会执行beforeDestroy和destroyed函数，也就是说vue实例并不会销毁，只会执行小程序的onUnload生命周期函数，小程序的page实例会被销毁掉，vue内部的状态会被保存。解决方法：小程序加载页面的时候初始化data里面的数据。
-	`onLoad() {
+	```
+  onLoad() {
 		Object.assign(this.$data, this.$options.data())
-	}`
+	}
+  ````
 
 
 17.通过back的方式返回上一级页面，上一级页面不会重新调用mounted（）方法，但是会再次调用onShow(）方法
@@ -119,5 +125,5 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 
 # 项目截图
 
-![首页](https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E9%A6%96%E9%A1%B5.jpg)
+![homepage](https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E9%A6%96%E9%A1%B5.jpg)
 
