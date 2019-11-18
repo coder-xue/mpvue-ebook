@@ -126,4 +126,8 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 # 项目截图
 
 ![首页](https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E9%A6%96%E9%A1%B5.jpg)
+![首页2](https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E9%A6%96%E9%A1%B5%20(2).jpg)
+![图书详情](https://github.com/coder-xue/mpvue-ebook/blob/master/images/%E5%9B%BE%E4%B9%A6%E8%AF%A6%E6%83%85.jpg)
+
+![webview](https://github.com/coder-xue/mpvue-ebook/blob/master/images/webview.jpg)
 
