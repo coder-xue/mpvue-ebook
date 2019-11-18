@@ -40,9 +40,10 @@ For detailed explanation on how things work, checkout the [guide](http://vuejs-t
 1. 安装sass-loader （npm i -D sass-loader node-sass）会有版本问题
 解决：在package.json文件中，指定sass-loader的版本为7.1.0，删除node_modules文件，然后重新cnpm install
 
+
 2. node_modules 中的类库最终被打包在了common文件下的vendor.js文件中，所引入的组件是无法直接访问的，通过修改构建配置，在webpack.base.config.js文件中加入以下代码即可。
 
-if (/^wx$/.test(PLATFORM)) {
+`if (/^wx$/.test(PLATFORM)) {
   baseWebpackConfig = merge(baseWebpackConfig, {
     plugins: [
       new CopyWebpackPlugin([{
@@ -52,7 +53,7 @@ if (/^wx$/.test(PLATFORM)) {
       }])
     ]
   })
-}
+}`
 
 3. 引入一个新组件的时候，需要重新运行 npm run dev，否则wxml会无法解析
 
@@ -62,14 +63,14 @@ if (/^wx$/.test(PLATFORM)) {
 
 5. mpvue的源码，主要支持以下这些标签，我们通常开发用不到这么多，记住一些常用的即可：
 
-var isReservedTag = makeMap(
+`var isReservedTag = makeMap(
   'template,script,style,element,content,slot,link,meta,svg,view,' +
   'a,div,img,image,text,span,richtext,input,switch,textarea,spinner,select,' +
   'slider,slider-neighbor,indicator,trisition,trisition-group,canvas,' +
   'list,cell,header,loading,loading-indicator,refresh,scrollable,scroller,' +
   'video,web,embed,tabbar,tabheader,datepicker,timepicker,marquee,countdown',
   true
-);
+);`
 也就是说实际开发过程中写 img 和写 image 都是可以的，mpvue 都可以正常识别
 
 
@@ -82,17 +83,10 @@ var isReservedTag = makeMap(
 
 9. 一个组件中导入了某个对象，不能直接在template模板中使用该对象，会报错，可以在computed中定义个方法，方法里面直接返回这个对象，这样就可以在template模板中通过computed的方法去调用了
 
-
 10. created 之前会完成 props、methods、data、computed 和 watch 五大属性的解析；
-
 created 之后 mpvue 会初始化 App 和 Page 对象，并调用小程序的钩子函数（如 onShow、onReady 等），此时界面已完成渲染；
-
 App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始对状态的更新（如更新 data 中的值等）；
-
 状态更新完毕后，mpvue 会调用 page.setData 对界面进行再次更新，之后 mpvue 会调用 mounted 钩子函数，此时小程序渲染完毕。
-
-所以 created 之后调用接口通常不会有问题，但是最佳时机应该是 mounted，因为此时小程序已经完成全部的渲染工作。如果小程序渲染速度较慢，而 created 中接口已经返回数据并开始更新页面，是会引发报错的。
-
 
 11.在新添加了路由后，需要重新 npm run dev
 
@@ -110,9 +104,9 @@ App 和 Page 对象初始化完毕后，mpvue 会调用 beforeMount 之后开始
 
 
 16.小程序页面卸载的时候，vue不会执行beforeDestroy和destroyed函数，也就是说vue实例并不会销毁，只会执行小程序的onUnload生命周期函数，小程序的page实例会被销毁掉，vue内部的状态会被保存。解决方法：小程序加载页面的时候初始化data里面的数据。
-	onLoad() {
+	`onLoad() {
 		Object.assign(this.$data, this.$options.data())
-	}
+	}`
 
 
 17.通过back的方式返回上一级页面，上一级页面不会重新调用mounted（）方法，但是会再次调用onShow(）方法
